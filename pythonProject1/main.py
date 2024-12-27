@@ -504,3 +504,117 @@ def start_server():
 
 if __name__ == "__main__":
     start_server()
+
+
+#-----------------------------------------------------------------------------------
+
+from pythonds.graphs import Graph, Vertex
+from pythonds.basic import Queue
+import sys
+
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.edges = []
+
+
+class Graph:
+    def __init__(self, nodes=[]):
+        self.nodes = nodes
+
+    def add_node(self, val):
+        new_node = Node(val)
+        self.nodes.append(new_node)
+
+    def add_edge(self, node1, node2):
+        node1.edges.append(node2)
+        node2.edges.append(node1)
+
+    def bfs(self):
+        if self.nodes is None:
+            return []
+        visited, to_visit = [], [self.nodes[0]]
+        while to_visit:
+            node = to_visit.pop()
+            visited.append(node)
+            print(node.val)
+            for nd in node.edges:
+                if nd not in visited and nd not in to_visit:
+                    to_visit.insert(0, nd)
+        return visited
+
+    def dfs(self):
+        if self.nodes is None:
+            return []
+        visited, to_visit = [], [self.nodes[0]]
+        while to_visit:
+            node = to_visit.pop()
+            visited.append(node)
+            print(node.val)
+            for nd in node.edges:
+                if nd not in visited and nd not in to_visit:
+                    to_visit.append(nd)
+        return visited
+
+
+def main():
+    graph1 = Graph()
+    for i in range(1, 16):
+        graph1.add_node(i)
+
+    graph1.add_edge(graph1.nodes[0], graph1.nodes[1])
+    graph1.add_edge(graph1.nodes[0], graph1.nodes[2])
+    graph1.add_edge(graph1.nodes[1], graph1.nodes[3])
+    graph1.add_edge(graph1.nodes[1], graph1.nodes[4])
+    graph1.add_edge(graph1.nodes[2], graph1.nodes[5])
+    graph1.add_edge(graph1.nodes[2], graph1.nodes[6])
+    graph1.add_edge(graph1.nodes[3], graph1.nodes[7])
+    graph1.add_edge(graph1.nodes[3], graph1.nodes[8])
+    graph1.add_edge(graph1.nodes[4], graph1.nodes[9])
+    graph1.add_edge(graph1.nodes[4], graph1.nodes[10])
+    graph1.add_edge(graph1.nodes[5], graph1.nodes[11])
+    graph1.add_edge(graph1.nodes[5], graph1.nodes[12])
+    graph1.add_edge(graph1.nodes[6], graph1.nodes[13])
+    graph1.add_edge(graph1.nodes[6], graph1.nodes[14])
+    print('The BFS Graph:')
+    graph1.bfs()
+# ----------------------------------------------
+    graph2 = Graph()
+    graph2.add_node(12)
+    graph2.add_node(8)
+    graph2.add_node(4)
+    graph2.add_node(9)
+    graph2.add_node(13)
+    graph2.add_node(1)
+    graph2.add_node(7)
+    graph2.add_node(3)
+    graph2.add_node(2)
+    graph2.add_node(6)
+    graph2.add_node(6)
+    graph2.add_node(5)
+    graph2.add_node(10)
+    graph2.add_node(11)
+    graph2.add_node(14)
+    graph2.add_node(15)
+
+    graph2.add_edge(graph2.nodes[0], graph2.nodes[1])
+    graph2.add_edge(graph2.nodes[1], graph2.nodes[2])
+    graph2.add_edge(graph2.nodes[2], graph2.nodes[3])
+    graph2.add_edge(graph2.nodes[3], graph2.nodes[4])
+    graph2.add_edge(graph2.nodes[2], graph2.nodes[5])
+    graph2.add_edge(graph2.nodes[5], graph2.nodes[6])
+    graph2.add_edge(graph2.nodes[6], graph2.nodes[7])
+    graph2.add_edge(graph2.nodes[7], graph2.nodes[8])
+    graph2.add_edge(graph2.nodes[8], graph2.nodes[9])
+    graph2.add_edge(graph2.nodes[8], graph2.nodes[10])
+    graph2.add_edge(graph2.nodes[9], graph2.nodes[11])
+    graph2.add_edge(graph2.nodes[11], graph2.nodes[12])
+    graph2.add_edge(graph2.nodes[10], graph2.nodes[13])
+    graph2.add_edge(graph2.nodes[13], graph2.nodes[14])
+    print('The DFS Graph:')
+    graph2.dfs()
+
+
+if __name__ == "__main__":
+    main()
